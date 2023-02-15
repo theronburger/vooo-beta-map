@@ -1,6 +1,8 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
 const registerButton = () => {
+	console.log("Adding Inventory button to UI");
+
 	WA.ui.actionBar.addButton({
 		id: "register-btn",
 		label: "Inventory",

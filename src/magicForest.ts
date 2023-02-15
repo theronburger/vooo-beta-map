@@ -3,13 +3,6 @@
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 import registerButton from "./inventory";
 
-let CrossStorageHub = require("cross-storage").CrossStorageHub;
-CrossStorageHub.init([
-	{ origin: /localhost:3000$/, allow: ["get"] },
-	{ origin: /:\/\/(www\.)?vercel.com$/, allow: ["get"] },
-	{ origin: /:\/\/(www\.)?workadventu.re$/, allow: ["get", "set", "del"] },
-]);
-
 console.log("Script started successfully");
 let metPumpkinScarecrow = false;
 let hasPumpkin = false;
