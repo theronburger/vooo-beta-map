@@ -3,6 +3,9 @@
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
+let metPumpkinScarecrow = false;
+let hasPumpkin = false;
+// let hasRing = false;
 
 // let currentPopup: any = undefined;
 
@@ -15,36 +18,58 @@ WA.onInit().then(() => {
         // const today = new Date();
         // const time = today.getHours() + ":" + today.getMinutes();
         // currentPopup = WA.ui.openPopup("clockPopup", "It's " + time, []);
-        WA.chat.sendChatMessage('Get out of my cabbage patch!', 'An angry scarecrow');
+        if (!hasPumpkin) { 
+            WA.chat.sendChatMessage('Get out of my cabbage patch!', 'An angry scarecrow');
+        } else {
+            WA.chat.sendChatMessage('Hey nice pumpkin...', 'An angry scarecrow');
+            WA.chat.sendChatMessage('Ill trade ya for a ring I found', 'An angry scarecrow');
+            
+        }
     })
 
     WA.room.area.onEnter('scarecrowPumpkin').subscribe(() => {
         // const today = new Date();
         // const time = today.getHours() + ":" + today.getMinutes();
         // currentPopup = WA.ui.openPopup("clockPopup", "It's " + time, []);
-        let messages = [
-            "Oh hi!", "Say, can you do me a favor", "Can you straighten my hat", "Its been bugging me for days now"
-        ];
-        let totalDelay = 0;
-        messages.forEach((message => {
-            const delay = Math.floor(Math.random() * (1000 - 500 + 1) + 500);
-            totalDelay = totalDelay + delay
-            setTimeout(() => {
-                WA.chat.sendChatMessage(message, 'A friendly scarecrow');
-            }, totalDelay)
-        }))
-        WA.chat.onChatMessage((userMessage => {
-            console.log('The user typed a message', userMessage);
-            if (userMessage.toLocaleLowerCase().indexOf("sure")) {                
-                WA.chat.sendChatMessage("Ah thats really nice of you. Here, have a pumpkin!", 'A friendly scarecrow');
-            }
-            
-        }));
+        if (!metPumpkinScarecrow) {
+            metPumpkinScarecrow = true;
+            let messages = [
+                "Oh hi!", "Say, can you do me a favor", "Can you straighten my hat", "Its been bugging me for days now"
+            ];
+            let totalDelay = 0;
+            messages.forEach((message => {
+                const delay = Math.floor(Math.random() * (1000 - 500 + 1) + 500);
+                totalDelay = totalDelay + delay
+                setTimeout(() => {
+                    WA.chat.sendChatMessage(message, 'A friendly scarecrow');
+                }, totalDelay)
+            }))            
+        }       
         
     })
 
-    // WA.room.area.onLeave('clock').subscribe(closePopup)
+    WA.chat.onChatMessage((userMessage => {
+        // console.log('The user typed a message', userMessage);
+        if (metPumpkinScarecrow) {                
+            if (userMessage.toLocaleLowerCase().indexOf("sure") > -1) {                
+                WA.chat.sendChatMessage("Ah thats really nice of you. Here, have a pumpkin!", 'A friendly scarecrow');
+                WA.chat.sendChatMessage("You acquired one pumpkin", 'Inventory');
+                hasPumpkin = true;
+            }   
+        } 
+        if (hasPumpkin) {                
+            if (userMessage.toLocaleLowerCase().indexOf("sure") > -1) {                
+                WA.chat.sendChatMessage("Sweet!", 'An angry scarecrow');
+                WA.chat.sendChatMessage("You lost one pumpkin", 'Inventory');
+                WA.chat.sendChatMessage("You acquired one gold ring", 'Inventory');
+                hasPumpkin = false;
+                // hasRing = true;
 
+            }   
+        }         
+    }));
+
+    // WA.room.area.onLeave('clock').subscribe(closePopup)
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
