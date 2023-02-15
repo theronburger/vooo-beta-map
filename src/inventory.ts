@@ -10,7 +10,7 @@ const registerButton = () => {
 				allowApi: true,
 				position: "center",
 				allow: null,
-				src: "https://vercel.com/theronburger/vooo-backpack/9VsE7itoVJGy59KhZAe3vZ2ui5ca",
+				src: "https://vooo-backpack.vercel.app/",
 				title: "Inventory",
 			});
 		},
