@@ -15,6 +15,8 @@ WA.onInit().then(() => {
     console.log('Player tags: ',WA.player.tags)
 
     WA.room.area.onEnter('scarecrowCabbage').subscribe(() => {
+        console.log("Entered scarecrowCabbage box");
+        
         // const today = new Date();
         // const time = today.getHours() + ":" + today.getMinutes();
         // currentPopup = WA.ui.openPopup("clockPopup", "It's " + time, []);
@@ -27,6 +29,7 @@ WA.onInit().then(() => {
         }
 
         WA.chat.onChatMessage((userMessage => {
+            console.log(`scarecrowCabbage onChatMessage : ${userMessage}`);
             if (hasPumpkin) {                
                 if (userMessage.toLocaleLowerCase().indexOf("sure") > -1) {                
                     WA.chat.sendChatMessage("Sweet!", 'An angry scarecrow');
@@ -58,7 +61,7 @@ WA.onInit().then(() => {
                 }, totalDelay)
             }))         
             WA.chat.onChatMessage((userMessage => {
-                // console.log('The user typed a message', userMessage);
+                console.log(`scarecrowPumpkin onChatMessage : ${userMessage}`);
                 if (metPumpkinScarecrow) {                
                     if (userMessage.toLocaleLowerCase().indexOf("sure") > -1) {                
                         WA.chat.sendChatMessage("Ah thats really nice of you. Here, have a pumpkin!", 'A friendly scarecrow');
