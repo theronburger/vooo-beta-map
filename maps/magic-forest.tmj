@@ -520,7 +520,51 @@
          "draworder":"topdown",
          "id":2,
          "name":"floorLayer",
-         "objects":[],
+         "objects":[
+                {
+                 "class":"area",
+                 "height":95.697,
+                 "id":18,
+                 "name":"scarecrowPumpkin",
+                 "rotation":0,
+                 "visible":true,
+                 "width":121.2727,
+                 "x":257.86365,
+                 "y":798.1515
+                }, 
+                {
+                 "class":"",
+                 "height":93.6673,
+                 "id":19,
+                 "name":"scarecrowPumpkinPopup",
+                 "rotation":0,
+                 "visible":true,
+                 "width":128.7162,
+                 "x":191.1419,
+                 "y":703.16635
+                }, 
+                {
+                 "class":"area",
+                 "height":95.697,
+                 "id":20,
+                 "name":"scarecrowCabbage",
+                 "rotation":0,
+                 "visible":true,
+                 "width":121.273,
+                 "x":471.3635,
+                 "y":704.1515
+                }, 
+                {
+                 "class":"",
+                 "height":93.6673,
+                 "id":21,
+                 "name":"scarecrowCabbage",
+                 "rotation":0,
+                 "visible":true,
+                 "width":128.716,
+                 "x":511.642,
+                 "y":608.16635
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -622,33 +666,33 @@
          "y":0
         }],
  "nextlayerid":62,
- "nextobjectid":18,
+ "nextobjectid":22,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"mapCopyright",
          "type":"string",
-         "value":"Credits: WorkAdventure (https:\/\/WorkAdventu.re) \nLicense: CC-BY-SA 3.0 (http:\/\/creativecommons.org\/licenses\/by-sa\/3.0\/)"
+         "value":"NA"
         }, 
         {
          "name":"mapDescription",
          "type":"string",
-         "value":"A perfect virtual office to get started with WorkAdventure!"
+         "value":"The exit from a forest"
         }, 
         {
          "name":"mapImage",
          "type":"string",
-         "value":"map.png"
+         "value":"magic-forest.png"
         }, 
         {
          "name":"mapName",
          "type":"string",
-         "value":"Office"
+         "value":"MagicForest"
         }, 
         {
          "name":"script",
          "type":"string",
-         "value":"\/src\/main.ts"
+         "value":"\/src\/magicForest.ts"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
