@@ -1,9 +1,5 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
-function message_broadcast(message: any) {
-	localStorage.setItem("message", JSON.stringify(message));
-}
-
 const registerButton = () => {
 	console.log("Adding Inventory button to UI");
 
@@ -12,7 +8,6 @@ const registerButton = () => {
 		label: "Inventory",
 		callback: (event) => {
 			console.log("Inventory Button clicked", event);
-			message_broadcast("Inventory Button clicked");
 			WA.ui.modal.openModal({
 				allowApi: true,
 				position: "center",
