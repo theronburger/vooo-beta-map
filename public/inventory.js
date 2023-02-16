@@ -1,4 +1,4 @@
-const items = [
+let items = [
 	{
 		name: "Cabbage",
 		src: "cabbage.png",
