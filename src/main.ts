@@ -33,6 +33,9 @@ WA.onInit()
 			persist: true,
 			scope: "world",
 		});
+		console.log(
+			JSON.parse(WA.player.state.loadVariable("inventory") as string)
+		);
 
 		WA.room.area.onEnter("clock").subscribe(() => {
 			const today = new Date();
