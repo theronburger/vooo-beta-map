@@ -34,7 +34,7 @@ $(() => {
 	$("#container").append(`
     <div class="backpack">
         <img
-            src="/inventory.png"
+            src="inventory.png"
             className="inventoryImage"
         />
         <div id="backpackContents" class="inventoryGrid">
