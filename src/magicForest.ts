@@ -18,6 +18,14 @@ WA.onInit()
 		console.log("Player tags: ", WA.player.tags);
 		registerButton();
 
+		let bc = new BroadcastChannel("lcb-inventory");
+		bc.postMessage(
+			JSON.stringify(["cabbage", "carrot", "pumpkin"])
+		); /* send */
+		bc.onmessage = function (ev) {
+			console.log(ev);
+		}; /* receive */
+
 		WA.room.area.onEnter("scarecrowCabbage").subscribe(() => {
 			console.log("Entered scarecrowCabbage box");
 
