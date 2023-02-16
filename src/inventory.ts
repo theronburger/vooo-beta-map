@@ -12,7 +12,7 @@ const registerButton = () => {
 				allowApi: true,
 				position: "center",
 				allow: null,
-				src: "https://vooo-backpack.vercel.app/",
+				src: "https://theronburger.github.io/vooo-beta-map/inventory.html",
 				title: "Inventory",
 			});
 		},
