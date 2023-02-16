@@ -6,11 +6,15 @@ import registerButton from "./inventory";
 console.log("Script started successfully");
 let metPumpkinScarecrow = false;
 let hasPumpkin = false;
-// let hasRing = false;
 
-// let currentPopup: any = undefined;
-
-// Waiting for the API to be ready
+function message_receive(ev: any) {
+	console.group("Storage Message Received");
+	console.log(ev);
+	// if (ev.key == 'message') {
+	//     var message=JSON.parse(ev.newValue);
+	// 	console.log(message);
+	// }
+}
 
 WA.onInit()
 	.then(() => {
@@ -18,13 +22,15 @@ WA.onInit()
 		console.log("Player tags: ", WA.player.tags);
 		registerButton();
 
-		let bc = new BroadcastChannel("lcb-inventory");
-		bc.postMessage(
-			JSON.stringify(["cabbage", "carrot", "pumpkin"])
-		); /* send */
-		bc.onmessage = function (ev) {
-			console.log(ev);
-		}; /* receive */
+		// let bc = new BroadcastChannel("lcb-inventory");
+		// bc.postMessage(
+		// 	JSON.stringify(["cabbage", "carrot", "pumpkin"])
+		// ); /* send */
+		// bc.onmessage = function (ev) {
+		// 	console.log(ev);
+		// }; /* receive */
+
+		window.addEventListener("storage", message_receive);
 
 		WA.room.area.onEnter("scarecrowCabbage").subscribe(() => {
 			console.log("Entered scarecrowCabbage box");
