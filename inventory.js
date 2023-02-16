@@ -49,6 +49,4 @@ $(() => {
         />
     `);
 	});
-
-	window.addEventListener("storage", message_receive);
 });
