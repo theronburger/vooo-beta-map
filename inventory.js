@@ -19,16 +19,13 @@ const blankItems = Array(5 * 7 - items.length).fill({
 });
 items = [...items, ...blankItems];
 
-function message_receive(ev) {
-	console.group("Storage Message Received");
-	console.log(ev);
-	console.groupEnd();
-}
-
 $(() => {
 	console.log("Inventory Loaded");
 	console.group("WorkAdventure Library (WA)");
-	console.log(WA);
+	// console.log(WA);
+	if (WA.player.state.hasVariable("inventory")) {
+		console.log(JSON.parse(WA.player.state.loadVariable("inventory")));
+	}
 	console.groupEnd();
 
 	$("#container").append(`
