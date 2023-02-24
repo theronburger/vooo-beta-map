@@ -1,0 +1,33 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0%;
+    overflow: hidden;
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#inventoryView {
+  background-color: blanchedalmond;
+}
+
+#objectView {
+  width: 50vw;
+  background-color: aquamarine;
+}
+
+#dialogView {
+  background-color:lightsalmon;
+}
