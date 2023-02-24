@@ -12,7 +12,7 @@ const registerButton = () => {
 				allowApi: true,
 				position: "center",
 				allow: null,
-				src: "https://theronburger.github.io/vooo-beta-map/inventory.html",
+				src: "https://theronburger.github.io/vooo-beta-map/interaction.html?inventory",
 				title: "Inventory",
 			});
 		},
