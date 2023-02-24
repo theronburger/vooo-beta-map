@@ -56,7 +56,7 @@ const model = {
 			},
 		},
 		hasLemon: {
-			image: "LemonTreePlucked.png",
+			image: "lemonTreePlucked.png",
 			text: "A small lemon tree with one less lemon",
 			events: {},
 		},
