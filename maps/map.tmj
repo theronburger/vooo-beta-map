@@ -686,7 +686,7 @@
                         {
                          "name":"openWebsite",
                          "type":"string",
-                         "value":"interaction.html?lemonTree"
+                         "value":"https:\/\/theronburger.github.io\/vooo-beta-map\/interaction.html?lemonTree"
                         }, 
                         {
                          "name":"openWebsiteTrigger",
