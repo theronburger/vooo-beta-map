@@ -14,7 +14,21 @@ $(() => {
 	waitForEl("#modelLoaderScript", () => {
 		WA.onInit().then(() => {
 			console.log("🎒 WA API is up ✅ Player name is ", WA.player.name);
-			machine = new Machine(model);
+			try {
+				const machine = new Machine(model);
+			} catch (error) {
+				console.error(
+					"🎒🧨 Failed to create new inventory state machine"
+				);
+				console.error(
+					"🎒🧨 Make sure the link in the map area has the correct name after the '?'"
+				);
+				console.error(
+					"🎒🧨 Make sure the model file exists and is named correctly"
+				);
+				console.log(error);
+			}
+
 			machine.onTransition = () => {
 				$("#text").html(machine.text);
 				if (machine.image) {
