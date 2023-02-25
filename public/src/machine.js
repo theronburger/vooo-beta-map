@@ -175,6 +175,7 @@ class Machine {
 		} else {
 			console.warn(`Current state '${eventName}' has no events`);
 		}
+		console.log(`State is now ${this._state}`);
 		console.groupEnd();
 	}
 }
