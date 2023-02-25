@@ -17,15 +17,11 @@ class Machine {
 	constructor(model) {
 		this._model = model;
 		this._state = model.initial;
-		this._inventory = WA.player.state?.inventory ?? {};
-		WA.player.state.saveVariable(
-			"inventory",
-			JSON.stringify(this._inventory)
-		);
 		console.log(
 			`🎒 Machine is up, state is ${this._state}. View is ${this.type}`
 		);
-		console.log(`🎒 Inventory loaded as ${JSON.stringify(this.inventory)}`);
+		this.inventory;
+		console.log(`🎒 Inventory loaded as `, this.inventory);
 	}
 	get type() {
 		return this._model.type;
@@ -46,21 +42,30 @@ class Machine {
 		return this._model.states[this._state].events;
 	}
 	get inventory() {
-		this._inventory = JSON.parse(WA.player.state?.inventory ?? "{}");
+		if (WA.player.state.hasVariable("inventory")) {
+			console.log("🎒 Inventory exists on WA.player.state, loading it");
+			this._inventory = JSON.parse(
+				WA.player.state.loadVariable("inventory")
+			);
+		} else {
+			console.log(
+				"🎒 Inventory did not exist on WA.player.state, creating empty object and saving back to WA"
+			);
+			this._inventory = {};
+			WA.player.state.saveVariable(
+				"inventory",
+				JSON.stringify(this._inventory)
+			);
+		}
 		return this._inventory;
 	}
-	/**
-	 * Sets the value of a WA player state variable
-	 * @param {string} itemName
-	 * @param {any} value
-	 */
-	_setInventoryItem(itemName, value) {
-		this._inventory[itemName] = value;
+	inventoryEdit(item, value) {
+		this._inventory[item] = value;
 		WA.player.state.saveVariable(
 			"inventory",
 			JSON.stringify(this._inventory)
 		);
-		console.log(`🎒 inventory[${itemName}] set to ${value}`);
+		console.log(`🎒 Inventory[${item}] set to ${value}`);
 	}
 	/**
 	 * Checks if the player has an item (state variable with itemName set to true)
@@ -125,12 +130,12 @@ class Machine {
 		// If there are actions, run them
 		if (met && event?.acquire?.length !== undefined) {
 			event.acquire.forEach((/** @type {string} */ itemName) =>
-				this._setInventoryItem(itemName, true)
+				this.inventoryEdit(itemName, true)
 			);
 		}
 		if (met && event?.loose?.length !== undefined) {
 			event.loose.forEach((/** @type {string} */ itemName) =>
-				this._setInventoryItem(itemName, false)
+				this.inventoryEdit(itemName, false)
 			);
 		}
 		//If transition allowed and there is a target
