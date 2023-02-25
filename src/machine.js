@@ -21,7 +21,7 @@ class Machine {
 			`🎒 Machine is up, state is ${this._state}. View is ${this.type}`
 		);
 		this.inventory;
-		console.log(`🎒 Inventory loaded as `, this.inventory);
+		console.log(`🎒 Inventory loaded as `, this._inventory);
 	}
 	get type() {
 		return this._model.type;
@@ -152,14 +152,19 @@ class Machine {
 				}
 				//if there are any onEntry events, do them
 				if (this._model.states[this._state]?.onEntry?.actions?.length) {
-					console.log(
-						`💥 ${event.target} has entry events, doing them`
+					console.group(
+						`💥 ${event.target} has ${
+							this._model.states[this._state]?.onEntry?.actions
+								?.length
+						} entry event(s)`
 					);
 					this._model.states[this._state].onEntry.actions.every(
-						(/** @type {EventType} */ onEntryEvent) => {
-							this._handleEvent(onEntryEvent);
+						(/** @type {EventType} */ onEntryEvent, i) => {
+							console.log(`💥 Doing entry event #${i}`);
+							return !this._handleEvent(onEntryEvent);
 						}
 					);
+					console.groupEnd();
 				}
 			} else {
 				console.error(`🧨 Target ${event.target} does not exist.`);
