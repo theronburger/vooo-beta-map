@@ -689,6 +689,11 @@
                          "value":"https:\/\/theronburger.github.io\/vooo-beta-map\/interaction.html?lemonTree"
                         }, 
                         {
+                         "name":"openWebsiteAllowApi",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"openWebsiteTrigger",
                          "type":"string",
                          "value":"onaction"
