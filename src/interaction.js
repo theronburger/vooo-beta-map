@@ -14,8 +14,9 @@ $(() => {
 	waitForEl("#modelLoaderScript", () => {
 		WA.onInit().then(() => {
 			console.log("🎒 WA API is up ✅ Player name is ", WA.player.name);
+			let machine = undefined;
 			try {
-				const machine = new Machine(model);
+				machine = new Machine(model);
 			} catch (error) {
 				console.error(
 					"🎒🧨 Failed to create new inventory state machine"
@@ -29,38 +30,47 @@ $(() => {
 				console.log(error);
 			}
 
-			machine.onTransition = () => {
-				$("#text").html(machine.text);
-				if (machine.image) {
-					$("#objectImage").prop("src", `assets/${machine.image}`);
-				} else {
-					$("#objectImage").prop("src", "");
-				}
+			if (machine) {
+				machine.onTransition = () => {
+					$("#text").html(machine.text);
+					if (machine.image) {
+						$("#objectImage").prop(
+							"src",
+							`assets/${machine.image}`
+						);
+					} else {
+						$("#objectImage").prop("src", "");
+					}
 
-				const options = $("#options");
-				options.empty();
-				for (let i = 0; i < Object.keys(machine.events).length; i++) {
-					const key = Object.keys(machine.events)[i];
-					const event = machine.events[key];
-					options.append(
-						$("<button>")
-							.html(event.text)
-							.on("click", (e) => machine.trigger(key))
-					);
-				}
-			};
-			machine.trigger("Ready");
+					const options = $("#options");
+					options.empty();
+					for (
+						let i = 0;
+						i < Object.keys(machine.events).length;
+						i++
+					) {
+						const key = Object.keys(machine.events)[i];
+						const event = machine.events[key];
+						options.append(
+							$("<button>")
+								.html(event.text)
+								.on("click", (e) => machine.trigger(key))
+						);
+					}
+				};
+				machine.trigger("Ready");
 
-			switch (machine.type) {
-				case "inventory":
-					$("#inventoryView").show();
-					break;
-				case "object":
-					$("#objectView").show();
-					break;
-				case "dialog":
-					$("#dialogView").show();
-					break;
+				switch (machine.type) {
+					case "inventory":
+						$("#inventoryView").show();
+						break;
+					case "object":
+						$("#objectView").show();
+						break;
+					case "dialog":
+						$("#dialogView").show();
+						break;
+				}
 			}
 		});
 	});
