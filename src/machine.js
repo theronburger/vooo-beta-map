@@ -42,7 +42,7 @@ class Machine {
 		return this._model.states[this._state].events;
 	}
 	get inventory() {
-		this._inventory = JSON.parse(WA.player.state?.inventory);
+		this._inventory = JSON.parse(WA.player.state?.inventory ?? "{}");
 		return this._inventory;
 	}
 	/**
