@@ -2,23 +2,6 @@
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 import registerButton from "./inventory";
 
-let items = [
-	{
-		name: "Cabbage",
-		src: "cabbage.png",
-	},
-	{
-		name: "Carrot",
-		src: "carrot.png",
-	},
-	{
-		name: "Pumpkin",
-		src: "pumpkin.png",
-	},
-];
-
-console.log("Script started successfully");
-
 let currentPopup: any = undefined;
 
 // Waiting for the API to be ready
@@ -27,15 +10,6 @@ WA.onInit()
 		console.log("Scripting API ready");
 		console.log("Player tags: ", WA.player.tags);
 		registerButton();
-
-		WA.player.state.saveVariable("inventory", JSON.stringify(items), {
-			public: true,
-			persist: true,
-			scope: "world",
-		});
-		console.log(
-			JSON.parse(WA.player.state.loadVariable("inventory") as string)
-		);
 
 		WA.room.area.onEnter("clock").subscribe(() => {
 			const today = new Date();
