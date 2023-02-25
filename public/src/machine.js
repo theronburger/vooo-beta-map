@@ -45,15 +45,13 @@ class Machine {
 	 * @returns {boolean}
 	 */
 	_mustHave(itemName) {
-		// const value = WA.player.state[itemName];
-		const value = localStorage.getItem(itemName);
+		const value = WA.player.state[itemName];
 		if (value) {
 			console.log(`Player should have${conditionName} and does`);
 			return true;
 		} else {
-			// console.log(`Player doesnt have ${itemName} but should (WA.player.state.${itemName} was ${value})`);
 			console.log(
-				`Player doesnt have ${itemName} but should (localStorage.getItem(${itemName}) returned ${value})`
+				`Player doesnt have ${itemName} but should (WA.player.state.${itemName} was ${value})`
 			);
 			return false;
 		}
@@ -64,15 +62,13 @@ class Machine {
 	 * @returns {boolean}
 	 */
 	_mustNotHave(itemName) {
-		// const value = WA.player.state[itemName];
-		const value = localStorage.getItem(itemName);
+		const value = WA.player.state[itemName];
 		if (value) {
 			console.log(`Player shouldn't have ${conditionName}, but does`);
 			return false;
 		} else {
-			// console.log(`Player doesnt have ${itemName} and shouldn't (WA.player.state.${itemName} was ${value})`);
 			console.log(
-				`Player doesnt have ${itemName} and shouldn't (localStorage.getItem(${itemName}) returned ${value})`
+				`Player doesnt have ${itemName} and shouldn't (WA.player.state.${itemName} was ${value})`
 			);
 			return true;
 		}
@@ -83,10 +79,8 @@ class Machine {
 	 * @param {any} value
 	 */
 	_setState(itemName, value) {
-		// WA.player.state.saveVariable(itemName, value);
-		// console.log(`WA.player.state.${itemName} set to ${value}`);
-		localStorage.setItem(itemName, value);
-		console.log(`localStorage.setItem(${itemName}, ${value})`);
+		WA.player.state.saveVariable(itemName, value);
+		console.log(`WA.player.state.${itemName} set to ${value}`);
 	}
 	/**
 	 * Handles an event and returns true on transition (not result of conditions met!)
