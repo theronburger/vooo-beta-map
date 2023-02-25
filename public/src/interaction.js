@@ -13,7 +13,7 @@ const waitForEl = function (selector, callback) {
 $(() => {
 	waitForEl("#modelLoaderScript", () => {
 		WA.onInit().then(() => {
-			console.log("✅ WA API is up. Player name is ", WA.player.name);
+			console.log("🎒 WA API is up ✅ Player name is ", WA.player.name);
 			machine = new Machine(model);
 			machine.onTransition = () => {
 				$("#text").html(machine.text);
