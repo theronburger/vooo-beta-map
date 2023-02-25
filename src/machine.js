@@ -139,35 +139,40 @@ class Machine {
 			);
 		}
 		//If transition allowed and there is a target
-		if (met && event.target) {
-			//check if it exists
-			if (this._model.states[event.target]) {
-				//transition
-				this._state = event.target;
-				causesTransition = true;
-				console.log(`👉 Transitioning to ${event.target}.`);
-				//If there is an onTransition callback defined, call it
-				if (typeof this._onTransition === "function") {
-					this._onTransition();
+		if (event.target) {
+			if (met) {
+				//check if it exists
+				if (this._model.states[event.target]) {
+					//transition
+					this._state = event.target;
+					causesTransition = true;
+					console.log(`👉 Transitioning to ${event.target}.`);
+					//If there is an onTransition callback defined, call it
+					if (typeof this._onTransition === "function") {
+						this._onTransition();
+					}
+					//if there are any onEntry events, do them
+					if (
+						this._model.states[this._state]?.onEntry?.actions
+							?.length
+					) {
+						console.group(
+							`💥 ${event.target} has ${
+								this._model.states[this._state]?.onEntry
+									?.actions?.length
+							} entry event(s)`
+						);
+						this._model.states[this._state].onEntry.actions.every(
+							(/** @type {EventType} */ onEntryEvent, i) => {
+								console.log(`💥 Doing entry event #${i}`);
+								return !this._handleEvent(onEntryEvent);
+							}
+						);
+						console.groupEnd();
+					}
+				} else {
+					console.error(`🧨 Target ${event.target} does not exist.`);
 				}
-				//if there are any onEntry events, do them
-				if (this._model.states[this._state]?.onEntry?.actions?.length) {
-					console.group(
-						`💥 ${event.target} has ${
-							this._model.states[this._state]?.onEntry?.actions
-								?.length
-						} entry event(s)`
-					);
-					this._model.states[this._state].onEntry.actions.every(
-						(/** @type {EventType} */ onEntryEvent, i) => {
-							console.log(`💥 Doing entry event #${i}`);
-							return !this._handleEvent(onEntryEvent);
-						}
-					);
-					console.groupEnd();
-				}
-			} else {
-				console.error(`🧨 Target ${event.target} does not exist.`);
 			}
 		} else {
 			console.log("🙅‍♀️ Event has no target");
