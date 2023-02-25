@@ -12,6 +12,10 @@ const waitForEl = function (selector, callback) {
 };
 $(() => {
 	waitForEl("#modelLoaderScript", () => {
+		WA.onInit().then(() => {
+			console.log("Player name: ", WA.player.name);
+			console.log("Room Token: ", WA.player.userRoomToken);
+		});
 		machine = new Machine(model);
 		machine.onTransition = () => {
 			$("#text").html(machine.text);
