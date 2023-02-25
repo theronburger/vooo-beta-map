@@ -18,6 +18,10 @@ class Machine {
 		this._model = model;
 		this._state = model.initial;
 		this._inventory = WA.player.state?.inventory ?? {};
+		WA.player.state.saveVariable(
+			"inventory",
+			JSON.stringify(this._inventory)
+		);
 		console.log(
 			`🎒 Machine is up, state is ${this._state}. View is ${this.type}`
 		);
@@ -83,7 +87,7 @@ class Machine {
 	 * @returns {boolean}
 	 */
 	_mustNotHave(itemName) {
-		const value = WA.player.state?.inventory[itemName];
+		const value = this.inventory[itemName];
 		if (value) {
 			console.log(
 				`🔍 Check mustNotHave failed ❌ Player should not have ${itemName}, but does (inventory[${itemName}] was ${value})`
