@@ -11,6 +11,10 @@ WA.onInit()
 		console.log("Player tags: ", WA.player.tags);
 		registerButton();
 
+		WA.player.state.onVariableChange("inventory").subscribe((value) => {
+			console.log("👀 Inventory changed. New value: ", value);
+		});
+
 		WA.room.area.onEnter("clock").subscribe(() => {
 			const today = new Date();
 			const time = today.getHours() + ":" + today.getMinutes();
