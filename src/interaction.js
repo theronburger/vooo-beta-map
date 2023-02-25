@@ -10,7 +10,6 @@ const waitForEl = function (selector, callback) {
 		}, 100);
 	}
 };
-
 $(() => {
 	waitForEl("#modelLoaderScript", () => {
 		machine = new Machine(model);
