@@ -19,7 +19,7 @@ class Machine {
 		this._state = model.initial;
 		this._inventory = WA.player.state?.inventory ?? {};
 		console.log(
-			`🤖 Machine is up, state is ${this._state}. View is ${this.type}`
+			`🎒 Machine is up, state is ${this._state}. View is ${this.type}`
 		);
 		console.log(`🎒 Inventory loaded as ${JSON.stringify(this.inventory)}`);
 	}
@@ -42,7 +42,7 @@ class Machine {
 		return this._model.states[this._state].events;
 	}
 	get inventory() {
-		this._inventory = WA.player.state?.inventory;
+		this._inventory = JSON.parse(WA.player.state?.inventory);
 		return this._inventory;
 	}
 	/**
@@ -52,7 +52,10 @@ class Machine {
 	 */
 	_setInventoryItem(itemName, value) {
 		this._inventory[itemName] = value;
-		WA.player.state.saveVariable("inventory", this._inventory);
+		WA.player.state.saveVariable(
+			"inventory",
+			JSON.stringify(this._inventory)
+		);
 		console.log(`🎒 inventory[${itemName}] set to ${value}`);
 	}
 	/**
@@ -141,7 +144,7 @@ class Machine {
 				//if there are any onEntry events, do them
 				if (this._model.states[this._state]?.onEntry?.actions?.length) {
 					console.log(
-						`⚡️ ${event.target} has entry events, doing them`
+						`💥 ${event.target} has entry events, doing them`
 					);
 					this._model.states[this._state].onEntry.actions.every(
 						(/** @type {EventType} */ onEntryEvent) => {
@@ -166,7 +169,7 @@ class Machine {
 	 * @param {string} eventName
 	 */
 	trigger(eventName) {
-		console.group(`New Event : ${eventName}`);
+		console.group(`🎒 New Event : ${eventName}`);
 		//If state has events
 		if (Object.keys(this._model.states[this._state]).length > 0) {
 			const event = this.events[eventName];
