@@ -17,14 +17,11 @@ class Machine {
 	constructor(model) {
 		this._model = model;
 		this._state = model.initial;
-		this._inventory = {};
-		this.inventory();
+		this._inventory = WA.player.state?.inventory ?? {};
 		console.log(
 			`🤖 Machine is up, state is ${this._state}. View is ${this.type}`
 		);
-		console.log(
-			`🎒 Inventory loaded as ${JSON.stringify(this.inventory())}`
-		);
+		console.log(`🎒 Inventory loaded as ${JSON.stringify(this.inventory)}`);
 	}
 	get type() {
 		return this._model.type;
