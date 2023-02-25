@@ -17,8 +17,13 @@ class Machine {
 	constructor(model) {
 		this._model = model;
 		this._state = model.initial;
+		this._inventory = {};
+		this.inventory();
 		console.log(
-			`⚙️ Machine is up, state is ${this._state}. View is ${this.type}`
+			`🤖 Machine is up, state is ${this._state}. View is ${this.type}`
+		);
+		console.log(
+			`🎒 Inventory loaded as ${JSON.stringify(this.inventory())}`
 		);
 	}
 	get type() {
@@ -39,19 +44,35 @@ class Machine {
 	get events() {
 		return this._model.states[this._state].events;
 	}
+	get inventory() {
+		this._inventory = WA.player.state?.inventory;
+		return this._inventory;
+	}
+	/**
+	 * Sets the value of a WA player state variable
+	 * @param {string} itemName
+	 * @param {any} value
+	 */
+	_setInventoryItem(itemName, value) {
+		this._inventory[itemName] = value;
+		WA.player.state.saveVariable("inventory", this._inventory);
+		console.log(`🎒 inventory[${itemName}] set to ${value}`);
+	}
 	/**
 	 * Checks if the player has an item (state variable with itemName set to true)
 	 * @param {string} itemName
 	 * @returns {boolean}
 	 */
 	_mustHave(itemName) {
-		const value = WA.player.state[itemName];
+		const value = this.inventory[itemName];
 		if (value) {
-			console.log(`Player should have${itemName} and does`);
+			console.log(
+				`🔍 Check mustHave passed ✅ Player should have${itemName} and does (inventory[${itemName}] was ${value})`
+			);
 			return true;
 		} else {
 			console.log(
-				`Player doesnt have ${itemName} but should (WA.player.state.${itemName} was ${value})`
+				`🔍 Check mustHave failed ❌ Player does not have ${itemName} but should (inventory[${itemName}] was ${value})`
 			);
 			return false;
 		}
@@ -62,25 +83,18 @@ class Machine {
 	 * @returns {boolean}
 	 */
 	_mustNotHave(itemName) {
-		const value = WA.player.state[itemName];
+		const value = WA.player.state?.inventory[itemName];
 		if (value) {
-			console.log(`Player shouldn't have ${itemName}, but does`);
+			console.log(
+				`🔍 Check mustNotHave failed ❌ Player should not have ${itemName}, but does (inventory[${itemName}] was ${value})`
+			);
 			return false;
 		} else {
 			console.log(
-				`Player doesnt have ${itemName} and shouldn't (WA.player.state.${itemName} was ${value})`
+				`🔍 Check mustNotHave passed ✅ Player does not have ${itemName} and shouldn't (inventory[${itemName}] was ${value})`
 			);
 			return true;
 		}
-	}
-	/**
-	 * Sets the value of a WA player state variable
-	 * @param {string} itemName
-	 * @param {any} value
-	 */
-	_setState(itemName, value) {
-		WA.player.state.saveVariable(itemName, value);
-		console.log(`WA.player.state.${itemName} set to ${value}`);
 	}
 	/**
 	 * Handles an event and returns true on transition (not result of conditions met!)
@@ -103,16 +117,16 @@ class Machine {
 					(met = met && this._mustNotHave(itemName))
 			);
 		}
-		console.log(`Conditions ${met ? "" : "not"} met`);
+		console.log(`${met ? "✅" : "❌"} Conditions ${met ? "" : "not"} met`);
 		// If there are actions, run them
 		if (met && event?.acquire?.length !== undefined) {
 			event.acquire.forEach((/** @type {string} */ itemName) =>
-				this._setState(itemName, true)
+				this._setInventoryItem(itemName, true)
 			);
 		}
 		if (met && event?.loose?.length !== undefined) {
 			event.loose.forEach((/** @type {string} */ itemName) =>
-				this._setState(itemName, false)
+				this._setInventoryItem(itemName, false)
 			);
 		}
 		//If transition allowed and there is a target
@@ -122,15 +136,16 @@ class Machine {
 				//transition
 				this._state = event.target;
 				causesTransition = true;
-				console.log(`Transitioning to ${event.target}.`);
+				console.log(`👉 Transitioning to ${event.target}.`);
 				//If there is an onTransition callback defined, call it
-				console.log("calling _onTransition");
 				if (typeof this._onTransition === "function") {
 					this._onTransition();
 				}
 				//if there are any onEntry events, do them
 				if (this._model.states[this._state]?.onEntry?.actions?.length) {
-					console.log(`${event.target} has entry events, doing them`);
+					console.log(
+						`⚡️ ${event.target} has entry events, doing them`
+					);
 					this._model.states[this._state].onEntry.actions.every(
 						(/** @type {EventType} */ onEntryEvent) => {
 							this._handleEvent(onEntryEvent);
@@ -138,10 +153,10 @@ class Machine {
 					);
 				}
 			} else {
-				console.error(`Target ${event.target} does not exist.`);
+				console.error(`🧨 Target ${event.target} does not exist.`);
 			}
 		} else {
-			console.log("Event has no target");
+			console.log("🙅‍♀️ Event has no target");
 		}
 		//If event causes transition, return true to short circuit calling every loop
 		return causesTransition;
@@ -169,13 +184,13 @@ class Machine {
 				});
 			} else {
 				console.warn(
-					`Current state '${this._state}' has no event '${eventName}'`
+					`🧨 Current state '${this._state}' has no event '${eventName}'`
 				);
 			}
 		} else {
-			console.warn(`Current state '${eventName}' has no events`);
+			console.warn(`🧨 Current state '${eventName}' has no events`);
 		}
-		console.log(`State is now ${this._state}`);
+		console.log(`💥 State is now ${this._state}`);
 		console.groupEnd();
 	}
 }
