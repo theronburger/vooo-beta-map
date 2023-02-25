@@ -47,7 +47,7 @@ class Machine {
 	_mustHave(itemName) {
 		const value = WA.player.state[itemName];
 		if (value) {
-			console.log(`Player should have${conditionName} and does`);
+			console.log(`Player should have${itemName} and does`);
 			return true;
 		} else {
 			console.log(
@@ -64,7 +64,7 @@ class Machine {
 	_mustNotHave(itemName) {
 		const value = WA.player.state[itemName];
 		if (value) {
-			console.log(`Player shouldn't have ${conditionName}, but does`);
+			console.log(`Player shouldn't have ${itemName}, but does`);
 			return false;
 		} else {
 			console.log(
