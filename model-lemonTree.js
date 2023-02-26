@@ -20,15 +20,22 @@ const model = {
 			onEntry: {
 				actions: [
 					{
-						target: "hasNoLemon",
-						mustHave: [],
-						mustNotHave: ["lemon"],
+						target: "onLemonQuest",
+						mustHave: ["lemonQuest"],
+						mustNotHave: [],
 						acquire: [],
 						loose: [],
 					},
 					{
-						target: "hasLemon",
-						mustHave: ["lemon"],
+						target: "lemonTaken",
+						mustHave: ["lemonTaken"],
+						mustNotHave: [],
+						acquire: [],
+						loose: [],
+					},
+					{
+						target: "lemonTree",
+						mustHave: [],
 						mustNotHave: [],
 						acquire: [],
 						loose: [],
@@ -37,7 +44,25 @@ const model = {
 			},
 			events: {},
 		},
-		hasNoLemon: {
+		lemonTree: {
+			image: "lemonTree.png",
+			text: "A small lemon tree covered in ripe lemons",
+			events: {
+				exit: {
+					text: "exit",
+					actions: [
+						{
+							target: "exit",
+							mustHave: [],
+							mustNotHave: [],
+							acquire: [],
+							loose: [],
+						},
+					],
+				},
+			},
+		},
+		lemonQuest: {
 			image: "lemonTree.png",
 			text: "A small lemon tree covered in ripe lemons",
 			events: {
@@ -45,20 +70,33 @@ const model = {
 					text: "Take a lemon",
 					actions: [
 						{
-							target: "hasLemon",
+							target: "lemonTaken",
 							mustHave: [],
 							mustNotHave: [],
-							acquire: ["lemon"],
+							acquire: ["lemon", "lemonTaken"],
 							loose: [],
 						},
 					],
 				},
 			},
 		},
-		hasLemon: {
+		lemonTaken: {
 			image: "lemonTreePlucked.png",
 			text: "A small lemon tree with one less lemon",
-			events: {},
+			events: {
+				exit: {
+					text: "exit",
+					actions: [
+						{
+							target: "exit",
+							mustHave: [],
+							mustNotHave: [],
+							acquire: [],
+							loose: [],
+						},
+					],
+				},
+			},
 		},
 	},
 };
