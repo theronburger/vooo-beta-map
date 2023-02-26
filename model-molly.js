@@ -180,18 +180,16 @@ const model = {
 		},
 		mollyQuestAccept: {
 			image: "molly-order.png",
-			text: "Oh dang, Im all out of lemon... But tell you what. If you find me some lemons Ill whip you up a special batch!",
+			text: "Amazing! Hope you find some soon.",
 			events: {
 				accept: {
-					text: "Ill try!",
+					text: "exit",
 					actions: [
 						{
-							//exit is a special target that will exit the dialog after a short delay
 							target: "exit",
 							mustHave: [],
 							mustNotHave: [],
-							//Add a marker to keep track of the lemon quest
-							acquire: ["lemonQuest"],
+							acquire: [],
 							loose: [],
 						},
 					],
