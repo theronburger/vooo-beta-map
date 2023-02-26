@@ -114,10 +114,10 @@ const model = {
 			text: "What'll it be?'",
 			events: {
 				toffee: {
-					text: "Ill take the toffee",
+					text: "Ill take the chocolate",
 					actions: [
 						{
-							target: "mollyToffee",
+							target: "mollyServeChocolate",
 							mustHave: [],
 							mustNotHave: [],
 							acquire: [],
