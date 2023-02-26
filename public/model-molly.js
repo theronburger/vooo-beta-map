@@ -125,25 +125,25 @@ const model = {
 						},
 					],
 				},
-			},
-			lemon: {
-				text: "Ill take the lemon please",
-				actions: [
-					{
-						target: "mollyServeLemon",
-						mustHave: ["lemonQuestDone"],
-						mustNotHave: [],
-						acquire: [],
-						loose: [],
-					},
-					{
-						target: "mollyQuestOffer",
-						mustHave: [],
-						mustNotHave: [],
-						acquire: [],
-						loose: [],
-					},
-				],
+				lemon: {
+					text: "Ill take the lemon please",
+					actions: [
+						{
+							target: "mollyServeLemon",
+							mustHave: ["lemonQuestDone"],
+							mustNotHave: [],
+							acquire: [],
+							loose: [],
+						},
+						{
+							target: "mollyQuestOffer",
+							mustHave: [],
+							mustNotHave: [],
+							acquire: [],
+							loose: [],
+						},
+					],
+				},
 			},
 		},
 		mollyQuestOffer: {
