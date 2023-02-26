@@ -142,6 +142,12 @@ class Machine {
 		if (event.target === "exit") {
 			console.log("👋 Target was exit, closing window");
 			console.error("🧨 Exit not implemented just yet");
+			const iframeId = WA.iframeId;
+			const page = WA.ui.website.getById(iframeId);
+			setTimeout(() => {
+				console.log(page);
+				page.close();
+			}, 2000);
 		}
 		//If transition allowed and there is a target
 		else if (event.target) {
