@@ -138,8 +138,13 @@ class Machine {
 				this.inventoryEdit(itemName, false)
 			);
 		}
+		//If the target is an exit event
+		if (event.target === "exit") {
+			console.log("👋 Target was exit, closing window");
+			console.error("🧨 Exit not implemented just yet");
+		}
 		//If transition allowed and there is a target
-		if (event.target) {
+		else if (event.target) {
 			if (met) {
 				//check if it exists
 				if (this._model.states[event.target]) {
