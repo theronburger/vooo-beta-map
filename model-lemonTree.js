@@ -20,7 +20,7 @@ const model = {
 			onEntry: {
 				actions: [
 					{
-						target: "LemonQuest",
+						target: "lemonQuest",
 						mustHave: ["lemonQuest"],
 						mustNotHave: [],
 						acquire: [],
