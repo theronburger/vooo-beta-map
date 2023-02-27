@@ -143,6 +143,7 @@ class Machine {
 			console.log("👋 Target was exit, closing window");
 			console.error("🧨 Exit not implemented just yet");
 			const iframeId = WA.iframeId;
+			console.log("iframeId : ", iframeId);
 			const page = WA.ui.website.getById(iframeId);
 			setTimeout(() => {
 				console.log(page);
